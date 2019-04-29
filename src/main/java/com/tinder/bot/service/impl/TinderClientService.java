@@ -32,6 +32,8 @@ public class TinderClientService implements ClientService {
 
     private boolean firstUpdate;
 
+    private int startPeriod;
+
     public TinderClientService() {
         this.firstUpdate = true;
     }
@@ -147,7 +149,7 @@ public class TinderClientService implements ClientService {
     public void processUpdates() {
         log.info("process updates");
         LocalDateTime updateTime = firstUpdate ?
-                LocalDateTime.now().minus(5, ChronoUnit.DAYS) :
+                LocalDateTime.now().minus(startPeriod, ChronoUnit.DAYS) :
                 LocalDateTime.now().minus(5, ChronoUnit.MINUTES);
 
         firstUpdate = false;
@@ -176,6 +178,11 @@ public class TinderClientService implements ClientService {
         } catch (IOException e) {
             log.info("Request Failed", e);
         }
+    }
+
+    @Override
+    public void setStartPeriod(int period) {
+        this.startPeriod = period;
     }
 
     private void configureHeaders(PostMethod post) {

@@ -27,6 +27,9 @@ public class BotApplication implements CommandLineRunner {
         String token = args[0];
         service.setToken(token);
 
+        int period = args.length > 1 ? Integer.valueOf(args[1]) : 5;
+        service.setStartPeriod(period);
+
         ScheduledExecutorService pickupService = Executors.newScheduledThreadPool(2);
         pickupService.scheduleAtFixedRate(service::processPickup,0, 30, TimeUnit.SECONDS);
         pickupService.scheduleAtFixedRate(service::processUpdates,0, 5, TimeUnit.MINUTES);

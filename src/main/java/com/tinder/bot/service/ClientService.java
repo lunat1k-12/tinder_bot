@@ -16,4 +16,6 @@ public interface ClientService {
     void processPickup();
 
     void processUpdates();
+
+    void setStartPeriod(int period);
 }
